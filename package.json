@@ -1,0 +1,29 @@
+{
+  "name": "Gifi",
+  "version": "0.0.0",
+  "description": "Gifi des idées de génie",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "~4.9.x"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Yojimb0/Gifi.git"
+  },
+  "keywords": [
+    "Gifi",
+    "Gif"
+  ],
+  "author": "Yojimbo",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Yojimb0/Gifi/issues"
+  },
+  "homepage": "https://github.com/Yojimb0/Gifi"
+}
