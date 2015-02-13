@@ -30,9 +30,9 @@ app.get('/gifi', function(req, res) {
 	    headers: headers,
 	    form: {
 	    	'token': process.env.SLACKTOKEN,
-	    	'channel': request.query.channel_id,
+	    	'channel': req.query.channel_id,
 	    	// 'channel': '#test',
-	    	'text': 'Vous avez demandé un gif en relation avec : '+request.query.text,
+	    	'text': 'Vous avez demandé un gif en relation avec : '+req.query.text,
 	    	'username': 'ZeBot'
 	    }
 	}
