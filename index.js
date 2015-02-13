@@ -1,6 +1,5 @@
 var express = require('express');
 var request = require('request');
-var config = require('./private-config/config.json');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -11,7 +10,7 @@ app.get('/', function(request, response) {
 });
 
 
-console.log('Slack token: ' + config.token);
+console.log('Slack token: ' + process.env.SLACKTOKEN);
 
 // ?token=eZH7rG3VoRbUxOnrkieCAkQL&team_id=T0001&channel_id=C2147483705&channel_name=test&user_id=U2147483697&user_name=Steve&command=/gifi&text=zob
 app.get('/gifi', function(req, res) {
@@ -30,7 +29,7 @@ app.get('/gifi', function(req, res) {
 	    method: 'POST',
 	    headers: headers,
 	    form: {
-	    	'token': config.token,
+	    	'token': process.env.SLACKTOKEN,
 	    	'channel': request.query.channel_id,
 	    	// 'channel': '#test',
 	    	'text': 'Vous avez demandé un gif en relation avec : '+request.query.text,
