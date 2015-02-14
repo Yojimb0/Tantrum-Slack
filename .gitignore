@@ -9,3 +9,4 @@ designs/
 *.sublime-workspace
 sftp-config
 .grunt
+private-config/
