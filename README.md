@@ -1,4 +1,3 @@
-# Gifi
-GIfi des idées de génie
+# Tantrum Slack Bot
 
 Yo yo yo !
