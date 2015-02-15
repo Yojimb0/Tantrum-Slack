@@ -1,53 +1,48 @@
-var express = require('express');
-var request = require('request');
-var Firebase = require("firebase");
-var app = express();
+var express  = require('express');
+var routes   = ['gifi', 'quotes'];
 
+if(process.env.SLACKTOKEN){
+	console.log('Slack token: ' + process.env.SLACKTOKEN);
+}else{
+	console.log('process.env.SLACKTOKEN missing');
+	return;
+}
+
+/* Express configuration
+---------------------------------------*/
+var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', function(request, response) {
-  response.send('Hello World!');
-});
 
+/* Routes
+---------------------------------------*/
+app.get('/', function(req,res){ res.send('Hello World!'); });
 
-console.log('Slack token: ' + process.env.SLACKTOKEN);
+routes.forEach(function(r){
 
-// ?token=eZH7rG3VoRbUxOnrkieCAkQL&team_id=T0001&channel_id=C2147483705&channel_name=test&user_id=U2147483697&user_name=Steve&command=/gifi&text=zob
-app.get('/gifi', function(req, res) {
-	// response.send('Vous avez demandé un gif en relation avec : '+request.query.text);
+	app.get('/'+r, function(req, res) {
+		var ret = require('./commands/'+r)(req,res);
+		if(ret) res.send(ret);
+	});
 	
-	/* REQUEST -----------------------------*/
-	// Set the headers
-	var headers = {
-	    'User-Agent':       'Super Agent/0.0.1',
-	    'Content-Type':     'application/x-www-form-urlencoded'
-	}
-
-	// Configure the request
-	var options = {
-	    url: 'https://slack.com/api/chat.postMessage',
-	    method: 'POST',
-	    headers: headers,
-	    form: {
-	    	'token': process.env.SLACKTOKEN,
-	    	'channel': req.query.channel_id,
-	    	// 'channel': '#test',
-	    	'text': 'Vous avez demandé un gif en relation avec : '+req.query.text,
-	    	'username': 'ZeBot'
-	    }
-	}
-
-	// Start the request
-	request(options, function (error, response, body) {
-	    if (!error && response.statusCode == 200) {
-	        // Print out the response body
-	        console.log(body)
-	    }
-	})
-	/* ---------------------------------------*/
 });
 
+
+/* Starting server
+---------------------------------------*/
 app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'));
+  console.log('Node app is running at localhost:' + app.get('port'));
 });
+
+
+/* Help & Docs
+---------------------------------------*/
+// Slack request
+// ?token=eZH7rG3VoRbUxOnrkieCAkQL
+// &team_id=T0001
+// &channel_id=C2147483705
+// &channel_name=test
+// &user_id=U2147483697
+// &user_name=Steve
+// &command=/gifi&text=zob
