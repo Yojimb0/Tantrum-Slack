@@ -16,7 +16,7 @@ module.exports = {
 		    form: {
 		    	'token': process.env.SLACKTOKEN,
 		    	// 'channel': channel,
-		    	'channel': '#test',
+		    	'channel': '#test', // Pour pouvoir poster depuis un server de dev local
 		    	'text': text,
 		    	'username': 'Tony A. Bot'
 		    }
